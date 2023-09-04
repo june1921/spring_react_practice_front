@@ -1,3 +1,9 @@
+# 리액트 시작
+
+## 리액트 컴포넌트를 만드는 방법
+개발사 메타에 따르면 리액트는 UI를 위한 자바스크립트 라이브러리다.\
+독립적이고 재사용가능한 '컴포넌트'를 기반으로 작동.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
