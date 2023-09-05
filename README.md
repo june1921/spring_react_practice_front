@@ -3,9 +3,14 @@
 ## 리액트 컴포넌트를 만드는 방법
 개발사 메타에 따르면 리액트는 UI를 위한 자바스크립트 라이브러리다.\
 독립적이고 재사용가능한 '컴포넌트'를 기반으로 작동.\
-리액트는 루트 컴포넌트에서 하위 컴포넌트로 흐름이 있다.\\
+리액트는 루트 컴포넌트에서 하위 컴포넌트로 흐름이 있다.
 
-리액트는
+리액트는 UI를 부분만 업데이트해서 렌더링의 효율을 높인다.\
+이때 VDOM을 사용.\
+업데이트 후 업데이트 전의 VDOM과의 스냅샷과 비교해서 변경된 부분만 업데이트.
+
+## 프롭과 상태
+프롭(Prop)과 상태(State)는 컴포넌트를 렌더링하기 위한 입력 데이터다. 컴포넌트는 프롭이나 상태가 바뀌면 다시 렌더링한다.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
