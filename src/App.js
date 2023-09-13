@@ -1,7 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
-import { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
