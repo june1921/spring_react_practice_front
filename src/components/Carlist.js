@@ -45,6 +45,7 @@ function Carlist() {
         }
     };
 
+    // 추가 버튼 함수
     const addCar = (car) => {
         fetch(SERVER_URL + "api/cars", {
             method: "POST",
@@ -60,6 +61,11 @@ function Carlist() {
             })
             .catch((err) => console.error(err));
     };
+
+    // 편집 버튼 함수
+    const updateCar = (car) => {
+        
+    }
 
     useEffect(() => {
         fetch(SERVER_URL + "api/cars")
