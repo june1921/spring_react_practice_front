@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SERVER_URL } from "../constans";
 import { DataGrid } from "@mui/x-data-grid";
 import { Snackbar } from "@mui/material";
+import AddCar from "./AddCar.js";
 
 function Carlist() {
     const [cars, setCars] = useState([]);
@@ -33,16 +34,31 @@ function Carlist() {
         if (window.confirm("삭제하시겠습니까?")) {
             fetch(url, { method: "DELETE" })
                 .then((response) => {
-                    if(response.ok) {
+                    if (response.ok) {
                         fetchCars();
                         setOpen(true);
-                    }
-                    else {
-                        alert('삭제 실패');
+                    } else {
+                        alert("삭제 실패");
                     }
                 })
                 .catch((err) => console.error(err));
         }
+    };
+
+    const addCar = (car) => {
+        fetch(SERVER_URL + "api/cars", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(car),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    fetchCars();
+                } else {
+                    alert("추가에 실패했습니다!");
+                }
+            })
+            .catch((err) => console.error(err));
     };
 
     useEffect(() => {
@@ -57,20 +73,24 @@ function Carlist() {
     }, []);
 
     return (
-        <div style={{ height: 500, width: "100%" }}>
-            <DataGrid
-                rows={cars}
-                columns={columns}
-                disableRowSelectionOnClick={true}
-                getRowId={(row) => row._links.self.href}
-            />
-            <Snackbar
-                open={open}
-                autoHideDuration={2000}
-                onClose={() => setOpen(false)}
-                message="Car deleted"
-            />
-        </div>
+        <React.Fragment>
+            <AddCar addCar={addCar} />
+
+            <div style={{ height: 500, width: "100%" }}>
+                <DataGrid
+                    rows={cars}
+                    columns={columns}
+                    disableRowSelectionOnClick={true}
+                    getRowId={(row) => row._links.self.href}
+                />
+                <Snackbar
+                    open={open}
+                    autoHideDuration={2000}
+                    onClose={() => setOpen(false)}
+                    message="Car deleted"
+                />
+            </div>
+        </React.Fragment>
     );
 }
 

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Dialog } from "@mui/material";
-import DialogActions from "@mui/material";
-import DialogContent from "@mui/material";
-import DialogTitle from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 
 function AddCar(props) {
     const [open, setOpen] = useState(false);
@@ -24,24 +24,33 @@ function AddCar(props) {
         setCars({...car, [event.target.name]: event.target.value});
     }
 
+    const handleSave = () => {
+        props.addCar(car);
+        handleClose();
+    }
+
     return(
         <div>
             <button onClick={handleClickOpen}>New Car</button>
-            <dialog open={open} onClose={handleClose}>
+            <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>New Car</DialogTitle>
                 <DialogContent>
-                    <input placeholder="" name="" value={car.} onChange={handleChange}/>
+                    <input placeholder="Brand" name="brand" value={car.brand} onChange={handleChange}/>
                     <br/>
-                    <input placeholder="" name="" value={car.} onChange={handleChange}/>
+                    <input placeholder="Model" name="model" value={car.model} onChange={handleChange}/>
                     <br/>
-                    <input placeholder="" name="" value={car.} onChange={handleChange}/>
+                    <input placeholder="Color" name="color" value={car.color} onChange={handleChange}/>
                     <br/>
-                    <input placeholder="" name="" value={car.} onChange={handleChange}/>
+                    <input placeholder="Year" name="year" value={car.year} onChange={handleChange}/>
                     <br/>
-                    <input placeholder="" name="" value={car.} onChange={handleChange}/>
+                    <input placeholder="Price" name="price" value={car.price} onChange={handleChange}/>
                     <br/>
                 </DialogContent>
-            </dialog>
+                <DialogActions>
+                    <button onClick={handleClose}>Cancel</button>
+                    <button onClick={handleSave}>Save</button>
+                </DialogActions>
+            </Dialog>
         </div>
 
     ) ;
