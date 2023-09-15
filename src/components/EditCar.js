@@ -17,6 +17,14 @@ function EditCar(props) {
 
     // 모달 폼 열기
     const handleClickOpen = () => {
+        setCar({
+            brand: props.data.row.brand,
+            model:props.data.row.model,
+            color:props.data.row.color,
+            year:props.data.row.year,
+            fuel:props.data.row.fuel,
+            price:props.data.row.price,
+        })
         setOpen(true);
     };
 
@@ -30,7 +38,10 @@ function EditCar(props) {
     };
 
     // 자동차를 업데이트하고 폼을 닫음.
-    const handleSave = () => {};
+    const handleSave = () => {
+        props.updateCar(car, props.data.id);
+        handleClose();
+    };
 
     return (
         <div>

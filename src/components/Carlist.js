@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { SERVER_URL } from "../constans";
-import { DataGrid } from "@mui/x-data-grid";
 import { Snackbar } from "@mui/material";
+import { DataGrid, GridToolbarContainer, GridToolbarExport, gridClasses } from "@mui/x-data-grid";
 import AddCar from "./AddCar.js";
+import EditCar from "./EditCar";
+import _default from "@mui/material/styles/identifier";
 
 function Carlist() {
     const [cars, setCars] = useState([]);
@@ -13,6 +15,15 @@ function Carlist() {
         { field: "color", headerName: "Color", width: 200 },
         { field: "year", headerName: "Year", width: 200 },
         { field: "price", headerName: "Price", width: 200 },
+        {
+            field: "_links.car.href",
+            headerName: "",
+            sortable: false,
+            filterable: false,
+            renderCell: (row) => (
+                <EditCar data={row} updateCar={updateCar}/>
+            ),           
+        },
         {
             field: "_links.self.href",
             headerName: "",
@@ -63,8 +74,23 @@ function Carlist() {
     };
 
     // 편집 버튼 함수
-    const updateCar = (car) => {
-        
+    const updateCar = (car, link) => {
+        fetch(link,
+            {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(car)
+            })
+            .then(response => {
+                if(response.ok){
+                    fetchCars();
+                }
+                else {
+                    alert('수정에 실패했습니다!');
+                }
+            })
+            .catch(err => console.error(err))
+
     }
 
     useEffect(() => {
@@ -88,6 +114,7 @@ function Carlist() {
                     columns={columns}
                     disableRowSelectionOnClick={true}
                     getRowId={(row) => row._links.self.href}
+                    components={{Toolbar: CustomToolbar}}
                 />
                 <Snackbar
                     open={open}
@@ -97,6 +124,14 @@ function Carlist() {
                 />
             </div>
         </React.Fragment>
+    );
+}
+
+function CustomToolbar() {
+    return(
+        <GridToolbarContainer className={gridClasses.toolbarContainer}>
+            <GridToolbarExport/>
+        </GridToolbarContainer>
     );
 }
 
