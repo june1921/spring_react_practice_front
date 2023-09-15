@@ -4,7 +4,9 @@ import { Snackbar } from "@mui/material";
 import { DataGrid, GridToolbarContainer, GridToolbarExport, gridClasses } from "@mui/x-data-grid";
 import AddCar from "./AddCar.js";
 import EditCar from "./EditCar";
-import _default from "@mui/material/styles/identifier";
+import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete"
 
 function Carlist() {
     const [cars, setCars] = useState([]);
@@ -30,7 +32,9 @@ function Carlist() {
             sortable: false,
             filterable: false,
             renderCell: (row) => (
-                <button onClick={() => onDelClick(row.id)}>Delete</button>
+                <IconButton onClick={() => onDelClick(row.id)}>
+                    <DeleteIcon color="error"/>
+                </IconButton>
             ),
         },
     ];
@@ -106,7 +110,10 @@ function Carlist() {
 
     return (
         <React.Fragment>
-            <AddCar addCar={addCar} />
+            <Stack mt={2} mb={2}>
+                <AddCar addCar={addCar} />
+            </Stack>
+            
 
             <div style={{ height: 500, width: "100%" }}>
                 <DataGrid
